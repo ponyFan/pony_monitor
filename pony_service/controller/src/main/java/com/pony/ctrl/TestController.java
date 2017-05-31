@@ -18,11 +18,12 @@ public class TestController {
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @RequestMapping("/list")
-    public String getList(Model model){
+    @ResponseBody
+    public BaseResponse getList(Model model){
         logger.info("***************** print info log ************************");
         logger.warn("***************** print warn log ************************");
         model.addAttribute("value", "hahahahha");
-        return "/test/redirecTest";
+        return new BaseResponse(200, "success", "vvvvvvvvvvvvvvv");
     }
 
     @RequestMapping("/redirectTest")
