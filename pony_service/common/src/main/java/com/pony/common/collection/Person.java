@@ -1,4 +1,4 @@
-package com.pony.common.collection.list;
+package com.pony.common.collection;
 
 /**
  * Created by zelei.fan on 2017/6/8.
