@@ -113,7 +113,7 @@ public class ListTest {
 
 
 
-        /*treeSet能够实现排序功能
+        /*treeSet能够实现排序功能，需要实现Comparator接口
         * */
         Set<Person> treeSet = new TreeSet<Person>(new Comparator<Person>() {
             @Override
@@ -169,9 +169,11 @@ public class ListTest {
         ListTest collection = new ListTest();
         List<Person> list = Lists.newArrayList();
         collection.ship(list);
+        /*实现list去重，将list转到set中，同时重写对象的equals和hashCode方法*/
         Set<Person> set = new HashSet<Person>(list);
         System.out.println(set);
 
+        /*treeSet排序，实现Comparator接口*/
         Set<Person> treeSet = new TreeSet<Person>(new Comparator<Person>() {
             @Override
             public int compare(Person o1, Person o2) {
