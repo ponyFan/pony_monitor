@@ -23,13 +23,18 @@ public class ThreadTest extends Thread{
         this.name = name;
     }
 
+    ThreadTest(){}
+
     private int index = 10;
 
     @Override
     public void run(){
+        System.out.println(Thread.currentThread().getName()+"线程开始运行");
         while (index > 0) {
-            System.out.println(Thread.currentThread().getName()+name + "运行  :  " + index--);
+            System.out.println(Thread.currentThread().getName()+name + "运行  :  " + index);
+            index --;
         }
+        System.out.println(Thread.currentThread().getName()+"线程运行结束");
     }
 
     public static void main(String[] args) {
@@ -44,6 +49,10 @@ public class ThreadTest extends Thread{
         ThreadTest threadTestb = new ThreadTest("B");
         threadTesta.start();
         threadTestb.start();
+        /*继承thread类也可以使用同一个实例*/
+        new Thread(threadTesta).start();
+        new Thread(threadTesta).start();
+        new Thread(threadTesta).start();
 
         RunnableTest a = new RunnableTest("C");
         RunnableTest b = new RunnableTest("D");
@@ -51,6 +60,7 @@ public class ThreadTest extends Thread{
         new Thread(b).start();
 
         /*runnable比thread具有的优势：
+        *        注意：不管是继承thread或者是实现runnable，线程都是不安全的
         *        1、 适合多个相同的程序代码的线程去处理同一资源；
         *             下面的例子，当用继承thread类时，new出的多个ThreadTest实例，在同时启动线程的时候这几个线程都是在各自运行各自中的资源，
         *         各自的线程中都有index这个资源，并且代码空间也都是互相独立，因为ThreadTest被new出多个实例，这几个线程并不共用同一实例；
@@ -87,5 +97,13 @@ public class ThreadTest extends Thread{
 
             }
         });
+
+        /*多线程参数传递
+        * 1、构造设值
+        * 2、set设值
+        * 3、回调设值
+        * */
+        ThreadTest thread = new ThreadTest("B");
+        thread.setName("M");
     }
 }

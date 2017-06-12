@@ -16,12 +16,8 @@ public class RunnableTest implements Runnable {
     @Override
     public void run() {
         while (index > 0) {
-            System.out.println(Thread.currentThread().getName()+name + "运行  :  " + index--);
-            try {
-                Thread.sleep(500);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
+            System.out.println(Thread.currentThread().getName()+name + "运行  :  " + index);
+            index --;
         }
     }
 }
