@@ -16,7 +16,11 @@ public class CallableTest implements Callable<String> {
     @Override
     public String call() throws Exception {
         System.out.println("call()方法被自动调用, 开始*******" + Thread.currentThread().getName());
-        Thread.sleep(10000);
+        if(index > 5){
+            Thread.sleep(1000);
+        }else {
+            Thread.sleep(10000);
+        }
         return "call()方法被自动调用，结束*******" + Thread.currentThread().getName();
     }
 }

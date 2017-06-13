@@ -4,6 +4,7 @@ import com.beust.jcommander.internal.Lists;
 
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.function.Consumer;
 
 /**
  * Created by zelei.fan on 2017/6/12.
@@ -62,7 +63,7 @@ public class ThreadPoolTest {
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
         for (int i = 0; i < 10; i ++){
             /*延时10秒执行*/
-            /*scheduledExecutorService.schedule(new ThreadHandle(String.valueOf(i)), 10, TimeUnit.SECONDS);*/
+            scheduledExecutorService.schedule(new ThreadHandle(String.valueOf(i)), 10, TimeUnit.SECONDS);
 
             /*从0ms开始每隔10秒执行一个任务，需要注意的是这个时间间隔是从上一个线程开始时计算的*/
             scheduledExecutorService.scheduleAtFixedRate(new ThreadHandle(String.valueOf(i)), 0, 10, TimeUnit.SECONDS);
@@ -73,7 +74,7 @@ public class ThreadPoolTest {
         System.out.println("主线程结束");
 
 
-        /*将线程放入线程池中，除了使用execute，还可以使用submit
+        /*将线程放入线程池中，除了使用execute，还可以使用submit,而且能够获取回调
         * submit适用于生产者-消费者模式，和Future一起使用起到没有返回结果就阻塞当前线程，等待线程池返回结果；
         * */
         ExecutorService pool1 = Executors.newCachedThreadPool();
@@ -82,5 +83,37 @@ public class ThreadPoolTest {
             Future<String> future = pool1.submit(new CallableTest(i));
             futureList.add(future);
         }
-    }
+        futureList.forEach(new Consumer<Future<String>>() {
+            @Override
+            public void accept(Future<String> stringFuture) {
+                try {
+                    System.out.println(stringFuture.get());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        /*同时区别一下Future和CompletionService两个的区别
+        * 通过上面一个例子可以知道Future是阻塞取出结果的，按顺序执行，如果说正常的前面的线程执行完成后面的线程还在执行中的话，前面线程的结果时可以直接返回的
+        * 但是如果后面的线程比前面的线程先执行完成，则后面线程的返回结果需要等待前面线程返回后才能取得结果；
+        * 而CompletionService是异步非阻塞的，哪个执行完成有回调了，哪个就能输出结果，看下面的例子
+        * */
+        CompletionService service = new ExecutorCompletionService(pool1);
+        for (int i = 0; i < 10; i ++){
+            service.submit(new CallableTest(i));
+        }
+        for(int i = 0; i < 10; i ++){
+            try {
+                System.out.println(service.take().get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+     }
 }
