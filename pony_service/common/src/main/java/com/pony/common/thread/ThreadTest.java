@@ -101,7 +101,7 @@ public class ThreadTest extends Thread{
         /*多线程参数传递
         * 1、构造设值
         * 2、set设值
-        * 3、回调设值
+        * 3、回调设值,把在run方法中处理完结果赋值给对象中的一个成员变量，然后主线程通过获取这个对象的成员变量值来获取结果
         * */
         ThreadTest thread = new ThreadTest("B");
         thread.setName("M");
