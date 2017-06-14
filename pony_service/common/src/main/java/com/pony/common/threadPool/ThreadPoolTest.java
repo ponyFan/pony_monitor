@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  *
  * 优点：
  * 1、减少在创建和销毁线程上所花的时间和资源开销
- * 2、余主线程隔离，实现异步执行
+ * 2、与主线程隔离，实现异步执行
  *
  * 注意：池中的线程数不是越多越好，线程休眠同样也会占用资源，所以要合理的选择线程池大小
  */
@@ -115,5 +115,31 @@ public class ThreadPoolTest {
             }
         }
 
-     }
+        /*模拟抢票*/
+        ExecutorService pool2 = Executors.newCachedThreadPool();
+        for(int i = 0; i < 1000; i ++){
+            pool2.submit(new test());
+        }
+
+    }
+}
+
+
+class test implements Runnable{
+
+    public static int index = 2;
+
+    @Override
+    public void run() {
+        ticket();
+    }
+
+    public static synchronized void ticket(){
+        if(index > 0){
+            System.out.println("恭喜"+Thread.currentThread().getName()+"抢到第"+index+"张票");
+            index --;
+        }else {
+            System.out.println(Thread.currentThread().getName()+"票已经被抢光");
+        }
+    }
 }
