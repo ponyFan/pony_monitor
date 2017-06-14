@@ -27,9 +27,10 @@ public class Producer implements Runnable {
             while (isRunning) {
                 data = "data:" + count.incrementAndGet();
                 System.out.println("将数据：" + data + "放入队列...");
-                if (!queue.offer(data, 2, TimeUnit.SECONDS)) {
+                queue.put(data);
+                /*if (!queue.offer(data, 2, TimeUnit.SECONDS)) {
                     System.out.println("放入数据失败：" + data);
-                }
+                }*/
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
