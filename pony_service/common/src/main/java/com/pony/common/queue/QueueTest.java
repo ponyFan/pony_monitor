@@ -37,7 +37,7 @@ public class QueueTest {
             /*启动20个生产者线程，往队列中加参数*/
             service.execute(new Producer(queue));
         }
-            /*启动20个消费者线程，从队列中取出参数，当队列中没有参数的时候，消费者则阻塞*/
+        /*启动20个消费者线程，从队列中取出参数，当队列中没有参数的时候，消费者则阻塞*/
         service.execute(new Consumer(queue));
         Thread.sleep(10 * 1000);
         // 退出Executor

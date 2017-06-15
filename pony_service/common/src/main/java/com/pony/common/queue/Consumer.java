@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit;
 public class Consumer implements Runnable {
 
     private BlockingQueue<String> queue;
-    private static final int      DEFAULT_RANGE_FOR_SLEEP = 1000;
+
+    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
 
     public Consumer(BlockingQueue<String> queue) {
         this.queue = queue;
