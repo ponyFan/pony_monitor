@@ -23,7 +23,7 @@ public class DequeTest {
     *
     * */
     public static void main(String[] args) {
-        /*主要验证下LIFO，FIFO和queue的实现方式一样*/
+        /*主要验证下LIFO;FIFO和queue的实现方式一样*/
         Deque deque = new LinkedBlockingDeque<>(10);
         ExecutorService pool = Executors.newCachedThreadPool();
 
