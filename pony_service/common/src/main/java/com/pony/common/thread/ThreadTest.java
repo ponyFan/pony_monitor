@@ -57,6 +57,7 @@ public class ThreadTest extends Thread{
         RunnableTest a = new RunnableTest("C");
         RunnableTest b = new RunnableTest("D");
         new Thread(a).start();
+        new Thread(a).start();
         new Thread(b).start();
 
         /*runnable比thread具有的优势：
