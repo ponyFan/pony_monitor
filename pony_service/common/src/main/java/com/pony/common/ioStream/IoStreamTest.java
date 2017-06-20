@@ -75,10 +75,29 @@ public class IoStreamTest {
     }
 
 
+    /*缓冲字符流, readLine()可以读取整行*/
+    public void bufferReaderTest()throws IOException{
+        BufferedReader reader;
+        BufferedWriter writer;
+        String str = null;
+        File fileCopy = new File("E:\\testCopy.txt");
+        File file = new File("E:\\test.txt");
+        writer = new BufferedWriter(new FileWriter(fileCopy));
+        reader = new BufferedReader(new FileReader(file));
+        while ((str = reader.readLine()) != null){
+            writer.write(str);
+            System.out.println(str);
+        }
+        writer.flush();//使用缓冲区中的方法，将数据刷新到目的地文件中去。
+        writer.close();
+    }
+
+
     public static void main(String[] args) throws Exception{
 
         IoStreamTest test = new IoStreamTest();
         /*test.inputStreamTest();*/
-        test.objectStreamTest();
+        /*test.objectStreamTest();*/
+        test.bufferReaderTest();
     }
 }
