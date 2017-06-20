@@ -32,51 +32,51 @@ public class ThreadPoolTest {
 
     public static void main(String[] args) {
         /*获取当前系统的CPU 数目*/
-        /*int mun = Runtime.getRuntime().availableProcessors();
+        int mun = Runtime.getRuntime().availableProcessors();
         System.out.println(mun);
 
         System.out.println("主线程开始");
 
-        *//*newCachedThreadPool可缓存线程池同时启动了十个线程来执行*//*
+        /*newCachedThreadPool可缓存线程池同时启动了十个线程来执行*/
         ExecutorService pool = Executors.newCachedThreadPool();
         for (int i = 0; i < 10; i ++){
             pool.execute(new ThreadHandle(String.valueOf(i)));
         }
         pool.shutdown();
 
-        *//*newFixedThreadPool固定线程数的线程池同一时刻最多只开启设定的5个线程，只有当前面的线程结束后才会继续执行后面等待的任务*//*
+        /*newFixedThreadPool固定线程数的线程池同一时刻最多只开启设定的5个线程，只有当前面的线程结束后才会继续执行后面等待的任务*/
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (int i = 0; i < 10; i ++){
             executorService.execute(new ThreadHandle(String.valueOf(i)));
         }
         executorService.shutdown();
 
-        *//*newSingleThreadExecutor单线程,同一时刻只有一个线程实例，所有任务都用这个实例执行
+        /*newSingleThreadExecutor单线程,同一时刻只有一个线程实例，所有任务都用这个实例执行
         * 相当于Executors.newFixedThreadPool(1)；
-        * *//*
+        * */
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
         for (int i = 0; i < 10; i ++){
             singleThreadExecutor.execute(new ThreadHandle(String.valueOf(i)));
         }
 
-        *//*计划类线程池*//*
+        /*计划类线程池*/
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
         for (int i = 0; i < 10; i ++){
-            *//*延时10秒执行*//*
+            /*延时10秒执行*/
             scheduledExecutorService.schedule(new ThreadHandle(String.valueOf(i)), 10, TimeUnit.SECONDS);
 
-            *//*从0ms开始每隔10秒执行一个任务，需要注意的是这个时间间隔是从上一个线程开始时计算的*//*
+            /*从0ms开始每隔10秒执行一个任务，需要注意的是这个时间间隔是从上一个线程开始时计算的*/
             scheduledExecutorService.scheduleAtFixedRate(new ThreadHandle(String.valueOf(i)), 0, 10, TimeUnit.SECONDS);
 
-            *//*从0ms开始每隔10秒执行一个任务，需要注意的是这个时间间隔是从上一个线程结束后计算的*//*
+            /*从0ms开始每隔10秒执行一个任务，需要注意的是这个时间间隔是从上一个线程结束后计算的*/
             scheduledExecutorService.scheduleWithFixedDelay(new ThreadHandle(String.valueOf(i)), 0, 10, TimeUnit.SECONDS);
         }
         System.out.println("主线程结束");
 
 
-        *//*将线程放入线程池中，除了使用execute，还可以使用submit,而且能够获取回调
+        /*将线程放入线程池中，除了使用execute，还可以使用submit,而且能够获取回调
         * submit适用于生产者-消费者模式，和Future一起使用起到没有返回结果就阻塞当前线程，等待线程池返回结果；
-        * *//*
+        * */
         ExecutorService pool1 = Executors.newCachedThreadPool();
         List<Future<String>> futureList = Lists.newArrayList();
         for (int i = 0; i < 10; i ++){
@@ -96,11 +96,11 @@ public class ThreadPoolTest {
             }
         });
 
-        *//*同时区别一下Future和CompletionService两个的区别
+        /*同时区别一下Future和CompletionService两个的区别
         * 通过上面一个例子可以知道Future是阻塞取出结果的，按顺序执行，如果说正常的前面的线程执行完成后面的线程还在执行中的话，前面线程的结果时可以直接返回的
         * 但是如果后面的线程比前面的线程先执行完成，则后面线程的返回结果需要等待前面线程返回后才能取得结果；
         * 而CompletionService是异步非阻塞的，哪个执行完成有回调了，哪个就能输出结果，看下面的例子
-        * *//*
+        * */
         CompletionService service = new ExecutorCompletionService(pool1);
         for (int i = 0; i < 10; i ++){
             service.submit(new CallableTest(i));
@@ -113,7 +113,7 @@ public class ThreadPoolTest {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
 
         /*模拟抢票*/
         ExecutorService pool2 = Executors.newCachedThreadPool();
