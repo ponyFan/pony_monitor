@@ -128,7 +128,7 @@ public class ReflectTest {
             String setName = "set"+property.substring(0, 1).toUpperCase()+property.substring(1);
 
             Method getMethod = person2.getClass().getDeclaredMethod(getName);
-            Method setMethod = person2.getClass().getDeclaredMethod(setName);
+            Method setMethod = person2.getClass().getDeclaredMethod(setName, new Class[]{field.getType()});
             Object o1 = getMethod.invoke(person2);
             if(field.getType().toString().equals("int")){
                 o1 = (int)o1 + (int)o1;
@@ -145,6 +145,11 @@ public class ReflectTest {
         ReflectTest test = new ReflectTest();
         /*test.classLoadTest();*/
         /*test.classInstanceTest();*/
-        test.reflectTest();
+        /*test.reflectTest();*/
+
+        Person person = new Person(1, "dd", "nanjing");
+        People people = new People();
+        BeanCopyUtil.copy(person, people);
+        System.out.println(people);
     }
 }
