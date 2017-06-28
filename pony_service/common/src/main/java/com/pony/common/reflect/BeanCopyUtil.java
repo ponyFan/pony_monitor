@@ -31,7 +31,7 @@ public class BeanCopyUtil {
             field.setAccessible(true);
             String property = field.getName();
             Class<?> type = field.getType();
-            if (type.toString().equals("java.lang.Integer")){
+            if (type.toString().equals("class java.lang.Integer")){
                 type = int.class;
             }
             for (Field field1 : fields1){
