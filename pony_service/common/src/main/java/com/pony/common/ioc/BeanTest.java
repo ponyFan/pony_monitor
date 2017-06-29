@@ -8,8 +8,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class BeanTest {
 
+    private static Data data;
+
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        /******************************注入 start*********************************/
         Person person = (Person)applicationContext.getBean("test");
         Person person1 = (Person)applicationContext.getBean("test");
         Person person2 = (Person)applicationContext.getBean("test");
@@ -24,7 +27,37 @@ public class BeanTest {
         /*下面则是返回的false，因为这是在内存空间里重新new的一个对象实例*/
         System.out.println(person == person3);
 
+        /*接口注入
+        * BeanTest类是依赖于Data这个接口的
+        *       从传统的方式看，如果需要使用Data接口的实例，就需要在代码中创建实现类的实例，然后赋给Data；
+        *    这样的话再编译时BeanTest就依赖Data这个接口
+        *       接口注入的话，就能实现他们在编译时的分离，根据配置的实现类的类名，动态加载实现类；如下
+        * */
+        try {
+            Object o = Class.forName("com.pony.common.ioc.DataImpl").newInstance();
+            data = (Data)o;
+            data.connect();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
+
+        /*集合注入*/
+        CollectionInjection injection = (CollectionInjection)applicationContext.getBean("collection");
+        System.out.println(injection.getList());
+        System.out.println(injection.getMap());
+
+        /******************************注入 end*********************************/
+
+        /******************************自动装配 start*********************************/
+        /*主要有一下几种装配方式：
+        * 1、byName: 在整个spring环境中查找，不能有重复的<bean>标签的id
+        * 2、byType：在整个spring环境中查找，不能有重复的<bean>标签的class
+        * */
 
     }
 }
