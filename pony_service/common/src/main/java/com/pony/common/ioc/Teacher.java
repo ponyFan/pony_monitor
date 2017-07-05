@@ -1,9 +1,9 @@
 package com.pony.common.ioc;
 
 /**
- * Created by zelei.fan on 2017/6/29.
+ * Created by zelei.fan on 2017/7/5.
  */
-public class Student {
+public class Teacher {
 
     private String name;
 
@@ -37,7 +37,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Teacher{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", sex='" + sex + '\'' +

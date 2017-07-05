@@ -55,9 +55,23 @@ public class BeanTest {
 
         /******************************自动装配 start*********************************/
         /*主要有一下几种装配方式：
-        * 1、byName: 在整个spring环境中查找，不能有重复的<bean>标签的id
-        * 2、byType：在整个spring环境中查找，不能有重复的<bean>标签的class
+        * 1、byName: 在整个spring环境中查找，不能有重复的<bean>标签的id，如果在spring环境中存在多个id一样的bean则会报错，但是id相同在spring环境中是不能存在的，只要出现spring在编码是就会提示
+        * 2、byType：在整个spring环境中查找，不能有重复的<bean>标签的class，如果在spring环境中存在多个类型相同（即class相同）的bean则会报错，而类型相同的bean是允许存在的
+        *
+        * 总结：1、根据name匹配，这个name是对应AutowireTest类中的private Teacher teacher;private Student student;的teacher和student
+        *      只要spring环境中存在id叫teacher和id叫student的bean，就会自动注入，不管bean的类型，如果bean的类型不是所需要的类型则异常
+        *
+        *      2、根据type匹配，type则是对应Teacher和Student，只要是class对应Teacher或者是Student则自动注入，不管id叫什么，
+        *      但是需要注意的是不能出现多个相同类型的bean，否则异常,所以说当前类所依赖的bean必须是单例的，如果非单例的话整个spring
+        *      环境中肯定不止一个依赖的类型相同的bean；
+        *
         * */
-
+        AutowireTest auto1 = (AutowireTest)applicationContext.getBean("autoTest1");
+        AutowireTest auto2 = (AutowireTest)applicationContext.getBean("autoTest2");
+        AutowireTest auto4 = (AutowireTest)applicationContext.getBean("teacher");/*这个bean是来测依赖对象为多例的时候，byType装配bean会异常，因为存在多个类型相同的bean*/
+        AutowireTest auto3 = (AutowireTest)applicationContext.getBean("autoTest3");
+        System.out.println("ref装配bean："+ auto1);
+        System.out.println("byName装配bean："+ auto2);
+        System.out.println("byType装配bean："+ auto3);
     }
 }

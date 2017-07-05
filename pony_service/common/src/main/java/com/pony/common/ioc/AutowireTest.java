@@ -5,16 +5,16 @@ package com.pony.common.ioc;
  */
 public class AutowireTest {
 
-    private Person person;
+    private Teacher teacher;
 
     private Student student;
 
-    public Person getPerson() {
-        return person;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public Student getStudent() {
@@ -28,7 +28,7 @@ public class AutowireTest {
     @Override
     public String toString() {
         return "AutowireTest{" +
-                "person=" + person +
+                "teacher=" + teacher +
                 ", student=" + student +
                 '}';
     }
