@@ -1,4 +1,4 @@
-package com.pony.common.ioc;
+package com.pony.common.ioc.model;
 
 /**
  * Created by zelei.fan on 2017/6/28.
@@ -11,18 +11,20 @@ public class Person {
 
     private String sex;
 
-    Person(){}
 
-    Person(String name){
+    /*在不同的包中，new一个重写构造函数的对象时，要加public，因为默认的是protect（只作用在当前包范围内）*/
+    public Person(){}
+
+    public Person(String name){
         this.name = name;
     }
 
-    Person(String name, int age){
+    public Person(String name, int age){
         this(name);
         this.age = age;
     }
 
-    Person(String name, int age, String sex){
+    public Person(String name, int age, String sex){
         this(name, age);
         this.sex = sex;
     }

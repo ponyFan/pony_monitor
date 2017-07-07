@@ -1,4 +1,4 @@
-package com.pony.common.ioc;
+package com.pony.common.ioc.model;
 
 /**
  * Created by zelei.fan on 2017/6/29.

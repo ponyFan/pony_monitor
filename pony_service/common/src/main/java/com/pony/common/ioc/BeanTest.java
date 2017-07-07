@@ -1,5 +1,8 @@
 package com.pony.common.ioc;
 
+import com.pony.common.ioc.model.AutowireTest;
+import com.pony.common.ioc.model.CollectionInjection;
+import com.pony.common.ioc.model.Person;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -68,10 +71,24 @@ public class BeanTest {
         * */
         AutowireTest auto1 = (AutowireTest)applicationContext.getBean("autoTest1");
         AutowireTest auto2 = (AutowireTest)applicationContext.getBean("autoTest2");
-        AutowireTest auto4 = (AutowireTest)applicationContext.getBean("teacher");/*这个bean是来测依赖对象为多例的时候，byType装配bean会异常，因为存在多个类型相同的bean*/
+        /*AutowireTest auto4 = (AutowireTest)applicationContext.getBean("teacher");*//*这个bean是来测依赖对象为多例的时候，byType装配bean会异常，因为存在多个类型相同的bean*/
         AutowireTest auto3 = (AutowireTest)applicationContext.getBean("autoTest3");
         System.out.println("ref装配bean："+ auto1);
         System.out.println("byName装配bean："+ auto2);
         System.out.println("byType装配bean："+ auto3);
+
+
+        /*方法注入：主要是用于一个单列bean依赖于一个多列bean的情况下；因为单列bean在初始化的时候实例化后不会再new实例，这样就导致了它所依赖的多例bean也是用的同一个实例；
+        *          但是实际需要的是每次调用该单例bean的时候，它所依赖的多例bean都是重新new的，这样就用到了方法注入；
+        * lookup：重写容器中bean的抽象方法，返回查找容器中其他bean的结果；
+        *
+        * 如果使用方法注入注入的bean是一个单例的话，下面打印的是true，这没什么意义，因为是单例的，所以在整个环境中只存在一个实例，就算是用了lookup注入每次注入的也都是同一个实例
+        * 但是多例就不一样了，每次注入都是一个新的实例
+        * */
+        Data data = applicationContext.getBean("data", Data.class);
+        Person person4 = data.getPerson();
+        Person person5 = data.getPerson();
+        System.out.println(person4);
+        System.out.println(person4 == person5);
     }
 }
