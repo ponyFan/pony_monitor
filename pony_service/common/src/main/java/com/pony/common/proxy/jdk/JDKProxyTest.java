@@ -11,7 +11,7 @@ import java.lang.reflect.Proxy;
 /**
  * Created by zelei.fan on 2017/7/7.
  *
- * jdk动态代理
+ * jdk动态代理,jdk主要局限于必须是接口才行
  */
 public class JDKProxyTest {
 
