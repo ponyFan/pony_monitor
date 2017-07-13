@@ -1,5 +1,8 @@
 package com.pony.common.reflect;
 
+import org.springframework.beans.BeanUtils;
+
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -129,6 +132,12 @@ public class ReflectTest {
 
             Method getMethod = person2.getClass().getDeclaredMethod(getName);
             Method setMethod = person2.getClass().getDeclaredMethod(setName, new Class[]{field.getType()});
+
+            PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(person2.getClass(), property);
+            Method readMethod = propertyDescriptor.getReadMethod();
+            Method writeMethod = propertyDescriptor.getWriteMethod();
+
+
             Object o1 = getMethod.invoke(person2);
             if(field.getType().toString().equals("int")){
                 o1 = (int)o1 + (int)o1;

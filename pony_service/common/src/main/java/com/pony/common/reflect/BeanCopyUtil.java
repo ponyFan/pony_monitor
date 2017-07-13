@@ -1,5 +1,9 @@
 package com.pony.common.reflect;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.springframework.beans.BeanUtils;
+
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -41,16 +45,8 @@ public class BeanCopyUtil {
                     tType = int.class;
                 }
                 if (property.equals(field1.getName()) && type.equals(tType)){
-                    String setName = null;
-                    StringBuffer buffer = new StringBuffer();
-                    buffer.append(SET).append(property.substring(0,1).toUpperCase()).append(property.substring(1));
-                    setName = buffer.toString();
-                    Method tMethod = null;
-                    try {
-                        tMethod = tClazz.getMethod(setName, field1.getType());
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    }
+                    PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(tClazz, property);
+                    Method tMethod = propertyDescriptor.getWriteMethod();
                     /*通过method方法来获取该属性的值*/
                     if (tMethod != null) {
                         try {

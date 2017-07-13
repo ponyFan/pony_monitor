@@ -52,5 +52,4 @@
               <ref bean="interceptor"/>
        </mvc:interceptors>
 
-       <import resource="spring.xml"/>
 </beans>

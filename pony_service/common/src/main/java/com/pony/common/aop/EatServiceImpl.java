@@ -1,5 +1,6 @@
 package com.pony.common.aop;
 
+import com.pony.common.interceptor.ServiceException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +18,7 @@ public class EatServiceImpl implements EatService{
     @Override
     public void lunch(String food) {
         System.out.println("晚饭吃："+food);
+        throw new ServiceException(404, "interceptor error");
     }
 
     @Override
