@@ -53,11 +53,11 @@ public class AopTest {
         /*************4、异常增强****************/
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         EatService eat = (EatService) applicationContext.getBean("eat");
-        eat.exception();
+        /*eat.exception();*/
 
         /*拦截*/
-        EatServiceImpl eatServiceImpl = (EatServiceImpl) applicationContext.getBean("eatServiceImpl");
-        eatServiceImpl.lunch("aaa");
-        eatServiceImpl.meal("sss");
+        EatServiceImpl eatServiceImpl = new EatServiceImpl();
+        eatServiceImpl.meal("aaa");
+        eatServiceImpl.lunch("ccc");
     }
 }

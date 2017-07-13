@@ -8,6 +8,7 @@
     <artifactId>pony_parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>common</module>
         <module>controller</module>
@@ -116,6 +117,14 @@
         </dependency>
         <!--spring依赖的jar包 end-->
 
+        <!--aop相关 start-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.9</version>
+        </dependency>
+        <!--aop相关 end-->
+
         <!--alibabaJson start-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -123,5 +132,14 @@
             <version>1.2.14</version>
         </dependency>
         <!--alibabaJson end-->
+
+        <!--severlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--severlet -->
     </dependencies>
 </project>

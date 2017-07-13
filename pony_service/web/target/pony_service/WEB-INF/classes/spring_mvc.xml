@@ -2,10 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
        <context:property-placeholder location="classpath*:config.properties"/>
 
@@ -29,4 +29,28 @@
               </property>
        </bean>
 
+
+       <!--aop增强; 1、注意aop需要配置在主xml中，或者主xml中引用了改xml；2、引入jar包-->
+       <bean id="eatAdvice" class="com.pony.common.aop.EatAdvice"/>
+
+       <aop:config>
+              <aop:pointcut id="advice" expression="execution(* com.pony.common.aop.EatServiceImpl.*(..))"/>
+              <aop:advisor pointcut-ref="advice" advice-ref="eatAdvice"/>
+       </aop:config>
+
+       <!--url拦截-->
+       <bean id="interceptor" class="com.pony.common.interceptor.URLInterceptor">
+              <property name="excludeUrlList">
+                     <list>
+                            <value>/test/redirectTest</value>
+                            <value>/test/list</value>
+                     </list>
+              </property>
+       </bean>
+
+       <mvc:interceptors>
+              <ref bean="interceptor"/>
+       </mvc:interceptors>
+
+       <import resource="spring.xml"/>
 </beans>

@@ -45,7 +45,7 @@ public class IoStreamTest {
         int len1 = 0;
         byte[] bytes1 = new byte[8192];
         bufferedInputStream = new BufferedInputStream(inputStream);
-        bufferedOutputStream = new BufferedOutputStream(outputStream, 1);
+        bufferedOutputStream = new BufferedOutputStream(outputStream);
         while ((len1 = bufferedInputStream.read(bytes1)) != -1){
             bufferedOutputStream.write(bytes1, 0, len1);
         }

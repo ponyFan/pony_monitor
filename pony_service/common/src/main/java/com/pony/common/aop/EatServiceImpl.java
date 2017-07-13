@@ -1,8 +1,11 @@
 package com.pony.common.aop;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by zelei.fan on 2017/7/10.
  */
+@Service
 public class EatServiceImpl implements EatService{
 
 
