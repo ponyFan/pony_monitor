@@ -22,7 +22,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="common" />
         <module name="controller" />
         <module name="dao" />
         <module name="model" />
@@ -35,14 +34,21 @@
         <processorPath useClasspath="true" />
         <module name="web" />
       </profile>
+      <profile default="false" name="Annotation profile for common" enabled="true">
+        <sourceOutputDir name="target\generated-sources\annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="common" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="common" target="1.8" />
-      <module name="controller" target="1.8" />
-      <module name="dao" target="1.8" />
-      <module name="model" target="1.8" />
-      <module name="pony_service" target="1.8" />
-      <module name="service" target="1.8" />
+      <module name="controller" target="1.5" />
+      <module name="dao" target="1.5" />
+      <module name="model" target="1.5" />
+      <module name="pony_service" target="1.5" />
+      <module name="service" target="1.5" />
       <module name="web" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -11,6 +11,17 @@
 
     <artifactId>common</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.pony</groupId>
+            <artifactId>dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.pony</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>pony_service</finalName>
         <plugins>

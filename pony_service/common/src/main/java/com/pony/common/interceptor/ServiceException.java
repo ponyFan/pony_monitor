@@ -10,11 +10,11 @@ public class ServiceException extends RuntimeException {
     private String message;
 
     public ServiceException(int code, String message){
-        super();
         this.code = code;
         this.message = message;
     }
 
+    @Override
     public String getMessage(){
         return message;
     }
@@ -22,4 +22,5 @@ public class ServiceException extends RuntimeException {
     public int getCode(){
         return code;
     }
+
 }
