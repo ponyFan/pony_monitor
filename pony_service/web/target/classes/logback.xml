@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan为true时：当配置文件中有修改的时候回重新加载
+    scanPeriod：每隔一分钟检测一次是否有修改
+    debug：是否打印出logback的内部日志
+-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false" >
+    <!--日志保存时间7天-->
+    <property name="maxHistory" value="7"/>
+    <!--日志文件大小，不超过20MB-->
+    <property name="maxFileSize" value="20MB"/>
+
+    <!--设置日志格式, 在控制台输出日志-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger -%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.home}/logs/info.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>
+                ${catalina.home}/logs/info.%d{yyyy-MM-dd}.%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 20MB -->
+                <maxFileSize>${maxFileSize}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 7 days' worth of history -->
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-1relative - %d{HH:mm:ss.SSS} [%thread] %-5level %logger{0}:%line -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.home}/logs/warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>
+                ${catalina.home}/logs/warn.%d{yyyy-MM-dd}.%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 20MB -->
+                <maxFileSize>${maxFileSize}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 7 days' worth of history -->
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-1relative - %d{HH:mm:ss.SSS} [%thread] %-5level %logger{0}:%line -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <!-- 控制台输出 -->
+        <appender-ref ref="STDOUT" />
+        <!-- 文件输出 -->
+        <appender-ref ref="INFO" />
+        <appender-ref ref="WARN" />
+    </root>
+</configuration>

@@ -3,9 +3,12 @@ package com.pony.ctrl;
 import com.pony.common.BaseResponse;
 import com.pony.common.aop.EatAdvice;
 import com.pony.common.aop.EatService;
+import com.pony.common.aop.aspect.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,9 @@ public class TestController {
     @Autowired
     private EatService eatService;
 
+    @Autowired
+    private Person person;
+
     @RequestMapping("/list")
     @ResponseBody
     public BaseResponse getList(Model model){
@@ -37,6 +43,14 @@ public class TestController {
     @RequestMapping("/redirectTest")
     @ResponseBody
     public BaseResponse redirect(String value){
+        person.eatBreakfast();
+        System.out.println("===================================================");
+        person.eatLunch();
+        System.out.println("===================================================");
+        person.eatSupper();
+        System.out.println("===================================================");
+        person.drink("可乐");
+        System.out.println("===================================================");
         eatService.lunch("aa");
         eatService.meal("cc");
         return new BaseResponse(200, "ok", value);

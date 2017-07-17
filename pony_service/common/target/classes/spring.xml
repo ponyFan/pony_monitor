@@ -92,4 +92,8 @@
               <property name="proxyTargetClass" value="true"/>
        </bean>
 
+       <!--aop aspect-->
+       <aop:aspectj-autoproxy/>
+       <bean id="aspectTest" class="com.pony.common.aop.aspect.AspectTest"/>
+       <bean id="aspectPerson" class="com.pony.common.aop.aspect.PersonImpl"/>
 </beans>

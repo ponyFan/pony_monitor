@@ -39,6 +39,8 @@
               <aop:advisor pointcut-ref="advice" advice-ref="eatAdvice"/>
        </aop:config>
 
+
+
        <!--url拦截-->
        <bean id="interceptor" class="com.pony.common.interceptor.URLInterceptor">
               <property name="excludeUrlList">
@@ -89,4 +91,5 @@
               <property name="sqlSessionFactoryBeanName" value="sqlFactory"/>
        </bean>
 
+       <import resource="spring.xml"/>
 </beans>
