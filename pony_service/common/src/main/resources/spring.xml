@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+       <!--ioc注入方式：构造注入-->
+       <bean id="test" class="com.pony.common.ioc.model.Person">
+              <!--按默认顺序-->
+              <!--<constructor-arg value="哈哈"/>
+              <constructor-arg value="12"/>
+              <constructor-arg value="男"/>-->
+              <!--按默认顺序，并且标明类型-->
+              <!--<constructor-arg type="java.lang.String" value="哈哈"/>
+              <constructor-arg type="int" value="12"/>
+              <constructor-arg type="java.lang.String" value="男"/>-->
+              <!--标明index后是可以乱序排的-->
+              <constructor-arg index="1" value="12"/>
+              <constructor-arg index="0" value="哈哈"/>
+              <constructor-arg index="2" value="男"/>
+       </bean>
+       <!--ioc注入方式：设值注入-->
+       <bean id="test1" class="com.pony.common.ioc.model.Person">
+              <property name="name" value="嘿嘿"/>
+              <property name="age" value="13"/>
+              <property name="sex" value="女"/>
+       </bean>
+
+       <!--集合注入-->
+       <bean id="collection" class="com.pony.common.ioc.model.CollectionInjection">
+              <property name="list">
+                     <list>
+                            <ref bean="test"/>
+                            <ref bean="test1"/>
+                     </list>
+              </property>
+              <property name="map">
+                     <map>
+                            <entry key="k1" value-ref="test"/>
+                            <entry key="k2" value-ref="test1"/>
+                     </map>
+              </property>
+       </bean>
+       <!--ioc注入方式 end-->
+
+       <!--自动装配-->
+       <bean id="teacher" class="com.pony.common.ioc.model.Teacher" scope="prototype">
+              <property name="age" value="12"/>
+              <property name="name" value="QQ"/>
+              <property name="sex" value="男"/>
+       </bean>
+
+       <bean id="student" class="com.pony.common.ioc.model.Student">
+              <property name="sex" value="女"/>
+              <property name="name" value="zz"/>
+              <property name="age" value="13"/>
+       </bean>
+
+       <!--通过属性set装配-->
+       <bean id="autoTest1" class="com.pony.common.ioc.model.AutowireTest">
+              <property name="teacher" ref="teacher"/>
+              <property name="student" ref="student"/>
+       </bean>
+
+       <!--byName装配-->
+       <bean id="autoTest2" autowire="byName" class="com.pony.common.ioc.model.AutowireTest"/>
+
+       <!--byType装配-->
+       <bean id="autoTest3" autowire="byType" class="com.pony.common.ioc.model.AutowireTest"/>
+
+
+       <!--方法注入-->
+       <bean id="person" class="com.pony.common.ioc.model.Person" scope="prototype">
+              <property name="age" value="10"/>
+              <property name="name" value="mm"/>
+              <property name="sex" value="男"/>
+       </bean>
+
+       <bean id="data" class="com.pony.common.ioc.Data">
+              <lookup-method name="getPerson" bean="person"/>
+       </bean>
+
+
+       <!--异常拦截-->
+       <bean id="exception" class="com.pony.common.aop.EatException"/>
+       <bean id="eatService" class="com.pony.common.aop.EatServiceImpl"/>
+
+       <bean id="eat" class="org.springframework.aop.framework.ProxyFactoryBean">
+              <property name="interceptorNames" value="exception"/>
+              <property name="target" ref="eatService"/>
+              <property name="proxyTargetClass" value="true"/>
+       </bean>
+
+</beans>
