@@ -90,5 +90,7 @@ public class BeanTest {
         Person person5 = data.getPerson();
         System.out.println(person4);
         System.out.println(person4 == person5);
+
+        ThreadLocal threadLocal = new ThreadLocal();
     }
 }

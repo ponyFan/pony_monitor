@@ -152,7 +152,7 @@ public class ReflectTest {
 
     public static void main(String[] args) throws Exception{
         ReflectTest test = new ReflectTest();
-        /*test.classLoadTest();*/
+        test.classLoadTest();
         /*test.classInstanceTest();*/
         /*test.reflectTest();*/
 

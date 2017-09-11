@@ -9,7 +9,7 @@ public class CallableTest implements Callable<String> {
 
     private int index;
 
-    CallableTest(int index){
+    public CallableTest(int index){
         this.index = index;
     }
 
