@@ -74,7 +74,7 @@
        </bean>
 
        <!--mybatis 配置
-       转载连接池中数据库连接的相关信息，映射mapper文件所在路径-->
+       装载载连接池中数据库连接的相关信息，映射mapper文件所在路径-->
        <bean id="sqlFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
               <property name="dataSource" ref="dataSource"/>
               <property name="mapperLocations" value="classpath*:mapper/*.xml"/>

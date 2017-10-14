@@ -1,7 +1,5 @@
 package com.pony.common.threadPool;
 
-import javafx.scene.input.DataFormat;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,7 +10,7 @@ public class ThreadHandle implements Runnable{
 
     private String index;
 
-    ThreadHandle(String index){
+    public ThreadHandle(String index){
         this.index = index;
     }
 

@@ -23,11 +23,9 @@ public class EatServiceImpl implements EatService{
     }
 
     @Override
-    public void lunch(String food) {
-        System.out.println("晚饭吃："+food);
+    public List<Config> lunch(String food) {
         List<Config> configList = configDao.selectAll();
-        System.out.println(configList);
-        throw new ServiceException(404, "interceptor error");
+        return configList;
     }
 
     @Override

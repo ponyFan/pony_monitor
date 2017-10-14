@@ -36,7 +36,11 @@ public class TestController {
     @RequestMapping("/list")
     @ResponseBody
     public BaseResponse getList(){
+<<<<<<< HEAD
         List<Config> configList = eatService.getService();
+=======
+        List<Config> configList = eatService.lunch("");
+>>>>>>> 33d88e7a270f084101c39ed1013264c7e4914c28
         return new BaseResponse(200, "success", configList);
     }
 
@@ -51,7 +55,7 @@ public class TestController {
         System.out.println("===================================================");
         person.drink("可乐");
         System.out.println("===================================================");
-        eatService.lunch("aa");
+        List<Config> aa = eatService.lunch("aa");
         eatService.meal("cc");
         return new BaseResponse(200, "ok", value);
     }

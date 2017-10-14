@@ -96,5 +96,5 @@
        <aop:aspectj-autoproxy/>
        <bean id="aspectTest" class="com.pony.common.aop.aspect.AspectTest"/>
        <!--用main函数加入bean，tomcat启用的时候不需要，会自动注入-->
-       <!--<bean id="aspectPerson" class="com.pony.common.aop.aspect.PersonImpl"/>-->
+       <bean id="aspectPerson" class="com.pony.common.aop.aspect.PersonImpl"/>
 </beans>

@@ -11,7 +11,7 @@ public interface EatService {
 
     void meal(String food);
 
-    void lunch(String food);
+    List<Config> lunch(String food);
 
     void exception();
 
