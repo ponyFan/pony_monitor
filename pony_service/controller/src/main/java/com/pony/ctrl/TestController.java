@@ -4,6 +4,7 @@ import com.pony.common.BaseResponse;
 import com.pony.common.aop.EatAdvice;
 import com.pony.common.aop.EatService;
 import com.pony.common.aop.aspect.Person;
+import com.pony.model.db.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by zelei.fan on 2017/5/19.
@@ -33,11 +35,9 @@ public class TestController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public BaseResponse getList(Model model){
-        logger.info("***************** print info log ************************");
-        logger.warn("***************** print warn log ************************");
-        model.addAttribute("value", "hahahahha");
-        return new BaseResponse(200, "success", "vvvvvvvvvvvvvvv");
+    public BaseResponse getList(){
+        List<Config> configList = eatService.getService();
+        return new BaseResponse(200, "success", configList);
     }
 
     @RequestMapping("/redirectTest")

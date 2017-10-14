@@ -35,4 +35,9 @@ public class EatServiceImpl implements EatService{
         System.out.println("执行出现异常");
         throw new RuntimeException();
     }
+
+    @Override
+    public List<Config> getService() {
+        return configDao.selectAll();
+    }
 }

@@ -76,6 +76,7 @@ public class ThreadStatusTest {
         new Thread(tf).start();
         new Thread(tg).start();*/
 
+
         Object a = new Object();
         Object b = new Object();
         SortThread sortThread = new SortThread("A", a, b);

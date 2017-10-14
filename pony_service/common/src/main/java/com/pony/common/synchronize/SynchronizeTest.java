@@ -20,7 +20,7 @@ public class SynchronizeTest implements Runnable{
 
     private static int index = 10;
 
-    private static final String Lock = "lock";
+    private static final String Lock = "lock";/**/
 
     private byte[] bytes = new byte[0];
 
@@ -106,15 +106,15 @@ public class SynchronizeTest implements Runnable{
        * */
         SynchronizeTest test = new SynchronizeTest();
         SynchronizeTest test1 = new SynchronizeTest();
-        new Thread(test).start();
         new Thread(test1).start();
-        new Thread(test).start();
         new Thread(test1).start();
-        new Thread(test).start();
         new Thread(test1).start();
-        new Thread(test).start();
         new Thread(test1).start();
-        new Thread(test).start();
+        new Thread(test1).start();
+        new Thread(test1).start();
+        new Thread(test1).start();
+        new Thread(test1).start();
+        new Thread(test1).start();
         new Thread(test1).start();
     }
 }
